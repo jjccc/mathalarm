@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  alarm_id: 1
+  sample_id: 1
+
+two:
+  alarm_id: 1
+  sample_id: 1

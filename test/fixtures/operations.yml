@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  alarm_id: 
+  operator_id: 
+  first_operand: 
+  second_operand: 
+  position: 1
+
+two:
+  alarm_id: 
+  operator_id: 
+  first_operand: 
+  second_operand: 
+  position: 1
