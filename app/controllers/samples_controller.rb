@@ -35,14 +35,19 @@ class SamplesController < ApplicationController
     begin
       @sample = Sample.new(params[:sample])     
       @alarm.samples << @sample
-      @alarm = Alarm.find(params[:alarm_id])      
-      if @sample.has_triggered_alarm
-        @notifications = @alarm.notifications.order("created_at desc, id desc").page(1)
-        @notifications_page = 1
+      if @sample.errors.blank?        
+        @alarm = Alarm.find(params[:alarm_id])      
+        if @sample.has_triggered_alarm
+          @notifications = @alarm.notifications.order("created_at desc, id desc").page(1)
+          @notifications_page = 1
+        end
+        @samples = @alarm.samples.order("created_at desc, id desc").page(@samples_page)
+        @message = "Se ha añadido una muestra a la alarma <b>#{@alarm.name}</b>"
+        @status = :created
+      else
+        @message = "#{@sample.errors.first[1]}.<br><br>No se ha podido añadir una muestra a la alarma <b>#{@alarm.name}</b>"
+        @status = :unprocessable_entity
       end
-      @samples = @alarm.samples.order("created_at desc, id desc").page(@samples_page)
-      @message = "Se ha añadido una muestra a la alarma <b>#{@alarm.name}</b>"
-      @status = :created
     rescue
       @message = "No se ha podido añadir una muestra a la alarma <b>#{@alarm.name}</b>"
       @status = :unprocessable_entity
