@@ -1,0 +1,5 @@
+<% if errors.any? && errors.keys.any?{ |x| x == symbol } %>  
+  <h5 class="text-danger">
+    <%= errors[errors.keys.select{ |x| x == symbol }.first] * "<br>" %>
+  </h5>
+<% end %>
