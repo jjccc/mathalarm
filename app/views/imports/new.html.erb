@@ -17,7 +17,7 @@
       <%= f.radio_button(:from, "file", :checked => @import.is_file?) %>
       <%= label_tag(:from_file, "Importar desde un archivo") %>
     </div>
-    <div class="form-group input-group">
+    <div id="file-selector" class="form-group input-group">
       <span class="input-group-btn">
         <span class="btn btn-default btn-primary btn-file">
           Seleccionar archivo<%= f.file_field :file %>

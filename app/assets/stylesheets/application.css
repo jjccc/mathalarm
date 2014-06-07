@@ -161,3 +161,7 @@ h2.price{
 li.space {
   width: 40px;
 }
+
+textarea.has-error {
+  border-color: #A94442;
+}

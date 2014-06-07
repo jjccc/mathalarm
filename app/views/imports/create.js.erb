@@ -18,4 +18,10 @@ $.pnotify({
     bind_samples_buttons();  
     $("#tab-samples-link").html('<%= AlarmDecorator.decorate(@alarm).tab_samples_title %>')
   <% end %>
+<% else %>
+  <% if @import.is_file? %>
+    $("#file-selector").addClass("has-error");
+  <% else %>
+    $("#import_value").addClass("has-error");
+  <% end %>
 <% end %>
