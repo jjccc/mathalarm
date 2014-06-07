@@ -27,11 +27,25 @@ function bind_manage_form_controls(){
 }
 
 function bind_before_send_form(prefix, message){   
-  $("form[id^='" + prefix + "']").each(function(){
-    $(this).on("ajax:beforeSend", function(){      
-      id = $(this).closest(".panel-footer").siblings("input").val();  
-      $("#" + prefix + id.toString()).addClass("hide");
-      $.pnotify(message);
+  $("form[id^='" + prefix + "']").each(function(){    
+    $(this).on("ajax:beforeSend", function(){ 
+      error = null;
+      if (prefix == "add-sample-"){
+        error = validate_sample($(this));
+      }   
+      if (prefix == "add-receiver-"){
+        error = validate_receiver($(this));
+      }
+      
+      if (error == null){
+        id = $(this).closest(".panel-footer").siblings("input").val();  
+        $("#" + prefix + id.toString()).addClass("hide");
+        $.pnotify(message);  
+      }  
+      else{
+        show_error(error);          
+        return false;        
+      }      
     });
   });
 }
@@ -78,7 +92,42 @@ function bind_cancel_form_buttons(button_prefix, form_prefix){
         // Show the current visible form
         id = $(this).closest(".panel-footer").siblings("input").val();
         $("#" + form_prefix + id.toString()).addClass("hide");
+        
+        // Remove all has-error classes and text values
+        $(".has-error").removeClass("has-error");
+        $(this).siblings("input").val("");
       });
   });
 }
 
+function validate_sample(form){
+  error = null;
+  sample_container = $($(form.children()[0]).children()[0]);
+  if (sample_container.val() == "" || isNaN(sample_container.val())){
+    error = {message: "El valor de la muestra debe ser numérico.", control: sample_container};
+  }
+  return error;
+}
+
+function validate_receiver(form){
+  error = null;
+  receiver_container = $($(form.children()[0]).children()[0]);
+  if (receiver_container.val() == ""){
+    error = {message: "El destinatario no puede estar vacío.", control: receiver_container};
+  }
+  else{
+    if (receiver_container.val().length() > 255){
+      error = {message: "El destinatario no puede tener más de 255 caracteres.", control: receiver_container};
+    }
+  }
+  return error;
+}
+
+function show_error(error){
+  error.control.parent().addClass("has-error");
+  error.control.select().focus(); 
+  $.pnotify({
+    text: error.message,
+    type: "error"
+  }); 
+}

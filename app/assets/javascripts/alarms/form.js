@@ -31,7 +31,7 @@ function validate_alarm(){
 
 function show_error(error){
   error.control.parent().addClass("has-error");
-  error.control.focus().select(); 
+  error.control.select().focus(); 
   error_container = error.control.next();  
   error_container.html(error.message);  
   error_container.removeClass("hidden");
