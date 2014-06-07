@@ -20,7 +20,7 @@ class Import
   end
   
   def to_sample
-    result = true
+    result = false
     begin
       if (!self.is_file? && !self.value.blank?) || (self.is_file? && !self.file.nil?)
         alarm = Alarm.find_by_id(self.alarm_id.to_i)
@@ -32,18 +32,18 @@ class Import
                 alarm.samples << Sample.new({:value => line.gsub(".", "").gsub(",", ".").to_f,
                                              :is_imported => true})
               end
-            end
+            end            
           else
             # Importando datos desde el control del formulario.
             self.value.split("\n").each do |s|
               alarm.samples << Sample.new({:value => s.gsub(".", "").gsub(",", ".").to_f,
                                            :is_imported => true})
             end
-          end          
+          end
+          result = true          
         end
       end            
     rescue
-      result = false
     end
     return result
   end
