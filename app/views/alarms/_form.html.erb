@@ -1,3 +1,5 @@
+<%= javascript_include_tag "alarms/form" %>
+
 <%= form_for(@alarm, :html => { :role => "form"}, :remote => !@alarm.new_record? ) do |f| %>
   <div id="form-group-name" class="form-group <%= h has_error_class(@alarm.errors, :name) %>">
     <%= f.text_field :name, :class => "form-control input-lg", :maxlength => 250, :placeholder => "Nombre de la alarma (obligatorio)" %>
