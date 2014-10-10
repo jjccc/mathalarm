@@ -5,7 +5,7 @@ development:
   database: mathalarm_dev
   pool: 5
   username: mathalarm
-  password: 1p4rp3ad
+  password: ********
   host: localhost
 
 # Warning: The database defined as "test" will be erased and
@@ -18,7 +18,7 @@ test:
   database: mathalarm_test
   pool: 5
   username: mathalarm
-  password: 1p4rp3ad
+  password: ********
   host: localhost
 
 production:
@@ -28,6 +28,6 @@ production:
   database: mathalarm_prod
   pool: 5
   username: mathalarm_jjccc
-  password: 1p4rp3ad
+  password: ********
   host: localhost
 
